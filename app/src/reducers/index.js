@@ -16,7 +16,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case LOAD_SUCCESS:
-      console.log(action);
       return {
         ...state,
         friends: [...action.payload.friends],
@@ -30,6 +29,16 @@ const reducer = (state = initialState, action) => {
         friends: [],
         loading: false,
         error: action.payload
+      };
+
+    case DELETE:
+      return {
+        ...state,
+        friends: [
+          ...state.friends.filter(friend => friend.id !== action.payload.id)
+        ],
+        loading: false,
+        error: null
       };
 
     default: {

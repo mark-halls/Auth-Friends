@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { actions } from "../../actions";
+import FriendForm from "../FriendForm";
+import Friend from "../Friend";
 
 const FriendList = () => {
   const dispatch = useDispatch(actions.getFriends());
@@ -16,10 +18,10 @@ const FriendList = () => {
 
   return (
     <>
+      <FriendForm />
       {friends ? (
         friends.map((friend, index) => {
-          console.log(friend);
-          return <div key={index}>{friend.name}</div>;
+          return <Friend key={index} {...friend} />;
         })
       ) : (
         <div>loading</div>

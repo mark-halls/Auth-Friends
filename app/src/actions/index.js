@@ -48,8 +48,31 @@ const getFriend = id => dispatch => {
     .catch(err => dispatch(loadFailed(err)));
 };
 
+const addFriend = friend => dispatch => {
+  dispatch(loading());
+  return axiosAuth()
+    .post(`${baseUrl}/friends`, friend)
+    .then(res => dispatch(loadSuccess({ friends: [...res.data] })))
+    .catch(err => dispatch(loadFailed(err)));
+};
+
+const deleteFriend = id => dispatch => {
+  dispatch(loading());
+  axiosAuth()
+    .delete(`${baseUrl}/friends/${id}`)
+    .then(() =>
+      dispatch({
+        type: DELETE,
+        payload: { id }
+      })
+    )
+    .catch(err => dispatch(loadFailed(err)));
+};
+
 export const actions = {
   login,
   getFriend,
-  getFriends
+  getFriends,
+  addFriend,
+  deleteFriend
 };
